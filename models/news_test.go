@@ -11,6 +11,7 @@ import (
 func TestInsert(t *testing.T) {
 	config.Init()
 	db.Init()
+	// CreateSchema(db.GetDB())
 
 	var n New
 
@@ -18,6 +19,11 @@ func TestInsert(t *testing.T) {
 	n.CategoryName = "Notícia"
 	n.Description = "Ratinho espanca goku ao vivo"
 	n.ImageUrl = "https://imagem.com/imagem.ong"
+	n.Rows = make([]*Row, 1)
+	n.Rows[0] = &Row{Type: 1, Content: "OLA", ImageUrl: "https://imagem.com/png"}
+
+	// fmt.Println(n.Rows[0])
+	// fmt.Println("aqui")
 
 	err2 := n.Save()
 
@@ -37,4 +43,17 @@ func TestSearch(t *testing.T) {
 	}
 
 	fmt.Println(news)
+}
+
+func TestSearchNewWithRows(t *testing.T) {
+	config.Init()
+	db.Init()
+
+	new, err2 := SearchNewWithRows(6)
+
+	if err2 != nil {
+		panic(err2.Error())
+	}
+
+	fmt.Println(new)
 }
