@@ -2,6 +2,7 @@ package controller
 
 import (
 	"net/http"
+	"strconv"
 
 	"github.com/gin-gonic/gin"
 	"github.com/news-backend/models"
@@ -25,4 +26,38 @@ func (n NewController) Save(c *gin.Context) {
 	}
 
 	c.JSON(http.StatusOK, gin.H{"message": "Gift Save"})
+}
+
+func (n NewController) SearchNewsByPage(c *gin.Context) {
+	page, err := strconv.Atoi(c.Param("page"))
+
+	if err != nil {
+		c.JSON(http.StatusBadRequest, gin.H{"error": "Please try again later1"})
+		return
+	}
+
+	news, err := models.SearchNewsPaginated(page)
+
+	if err != nil {
+		c.JSON(http.StatusInternalServerError, gin.H{"error": "Please try again later2"})
+		return
+	}
+	c.JSON(http.StatusOK, gin.H{"news": news})
+}
+
+func (n NewController) SearchNewsDetail(c *gin.Context) {
+	id, err := strconv.Atoi(c.Param("id"))
+
+	if err != nil {
+		c.JSON(http.StatusBadRequest, gin.H{"error": "Please try again later1"})
+		return
+	}
+
+	new, err := models.SearchNewWithRows(id)
+
+	if err != nil {
+		c.JSON(http.StatusInternalServerError, gin.H{"error": "Please try again later2"})
+		return
+	}
+	c.JSON(http.StatusOK, gin.H{"news": new})
 }

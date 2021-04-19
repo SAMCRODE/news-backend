@@ -19,6 +19,8 @@ func NewRouter() *gin.Engine {
 	{
 		news := new(controller.NewController)
 		newsGroup.POST("/create", news.Save)
+		newsGroup.GET("/collection/:page", news.SearchNewsByPage)
+		newsGroup.GET("/detail/:id", news.SearchNewsDetail)
 	}
 
 	return router

@@ -2,17 +2,22 @@ package models
 
 import (
 	"fmt"
+	"os"
 	"testing"
 
 	"github.com/news-backend/config"
 	"github.com/news-backend/db"
 )
 
-func TestInsert(t *testing.T) {
+func TestMain(m *testing.M) {
 	config.Init()
 	db.Init()
-	// CreateSchema(db.GetDB())
+	os.Exit(m.Run())
+}
 
+func TestInsert(t *testing.T) {
+	// CreateSchema(db.GetDB())
+	fmt.Println("Aqui")
 	var n New
 
 	n.Name = "Ratinho espanca goku"
@@ -33,9 +38,6 @@ func TestInsert(t *testing.T) {
 }
 
 func TestSearch(t *testing.T) {
-	config.Init()
-	db.Init()
-
 	news, err2 := SearchNews()
 
 	if err2 != nil {
@@ -46,13 +48,20 @@ func TestSearch(t *testing.T) {
 }
 
 func TestSearchNewWithRows(t *testing.T) {
-	config.Init()
-	db.Init()
-
-	new, err2 := SearchNewWithRows(6)
+	new, err2 := SearchNewWithRows(1)
 
 	if err2 != nil {
 		panic(err2.Error())
+	}
+
+	fmt.Println(new)
+}
+
+func TestSearchNewsPaginated(t *testing.T) {
+	new, err := SearchNewsPaginated(1)
+
+	if err != nil {
+		panic(err.Error())
 	}
 
 	fmt.Println(new)

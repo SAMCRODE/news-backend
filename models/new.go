@@ -48,6 +48,15 @@ func SearchNews() ([]New, error) {
 	return news, err
 }
 
+func SearchNewsPaginated(page int) ([]New, error) {
+	pg := db.GetDB()
+	var news []New
+
+	err := pg.Model(&news).Offset(10 * (page - 1)).Limit(10).Select()
+
+	return news, err
+}
+
 func SearchNewWithRows(id int) (New, error) {
 	db := db.GetDB()
 	var new New
