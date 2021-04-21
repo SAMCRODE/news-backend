@@ -45,6 +45,28 @@ func (n NewController) SearchNewsByPage(c *gin.Context) {
 	c.JSON(http.StatusOK, gin.H{"news": news})
 }
 
+func (n NewController) SearchLastestNews(c *gin.Context) {
+	news, err := models.SearchLastestNews(10)
+
+	if err != nil {
+		c.JSON(http.StatusInternalServerError, gin.H{"error": "Please try again later2"})
+		return
+	}
+	c.JSON(http.StatusOK, gin.H{"news": news})
+}
+
+func (n NewController) SearchHomePageNews(c *gin.Context) {
+	news, err := models.SearchLastestNews(10)
+	hotnews, err1 := models.SearchHotNews()
+
+	if err != nil || err1 != nil {
+		c.JSON(http.StatusInternalServerError, gin.H{"error": "Please try again later2"})
+		return
+	}
+
+	c.JSON(http.StatusOK, gin.H{"lastest": news, "hot": hotnews})
+}
+
 func (n NewController) SearchNewsDetail(c *gin.Context) {
 	id, err := strconv.Atoi(c.Param("id"))
 
