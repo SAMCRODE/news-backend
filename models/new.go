@@ -8,13 +8,23 @@ import (
 	"github.com/news-backend/db"
 )
 
+type RowType string
+
+const (
+	ROWLAYOUT1TYPE = "ROWLAYOUT1TYPE"
+	ROWLAYOUT2TYPE = "ROWLAYOUT2TYPE"
+	ROWPUREHTML    = "ROWPUREHTML"
+)
+
 type Row struct {
-	tableName struct{} `pg:"rows"`
-	Id        int      `pg:",pk"`
-	Type      int
-	Content   string
-	ImageUrl  string
-	NewId     int
+	tableName    struct{} `pg:"rows"`
+	Id           int      `pg:",pk"`
+	Type         RowType
+	Content      string
+	ImageUrl     string
+	NewId        int
+	FirstLetter  string
+	CaptionImage string
 }
 
 type New struct {

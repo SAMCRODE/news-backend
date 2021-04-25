@@ -81,5 +81,5 @@ func (n NewController) SearchNewsDetail(c *gin.Context) {
 		c.JSON(http.StatusInternalServerError, gin.H{"error": "Please try again later2"})
 		return
 	}
-	c.JSON(http.StatusOK, gin.H{"news": new})
+	c.JSON(http.StatusOK, gin.H{"post": new})
 }
