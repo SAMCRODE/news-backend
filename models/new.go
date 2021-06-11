@@ -1,10 +1,8 @@
 package models
 
 import (
-	"fmt"
 	"time"
 
-	"github.com/go-pg/pg/v10"
 	"github.com/news-backend/db"
 )
 
@@ -38,6 +36,8 @@ type New struct {
 	ShowNumber      int
 	CreateDate      time.Time
 	Rows            []*Row `pg:"rel:has-many"`
+	AuthorId        int
+	Author          User `pg:"rel:has-one"`
 }
 
 func (n New) Save() error {
@@ -46,8 +46,7 @@ func (n New) Save() error {
 
 	for i := 0; i < len(n.Rows); i++ {
 		n.Rows[i].NewId = n.Id
-		_, err := pg.Model(n.Rows[i]).Insert()
-		fmt.Println(err)
+		pg.Model(n.Rows[i]).Insert()
 	}
 
 	return err
@@ -92,7 +91,10 @@ func SearchHotNews() ([]New, error) {
 func SearchNewWithRows(id int) (New, error) {
 	db := db.GetDB()
 	var new New
-	err := db.Model(&new).Column("new.*").Where("? = ?", pg.Ident("id"), id).Relation("Rows").First()
+	err := db.Model(&new).
+		Relation("Author").
+		Where("new.id = ?", id).
+		Relation("Rows").First()
 
 	return new, err
 }

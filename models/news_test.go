@@ -45,6 +45,7 @@ func TestInsertRowType1(t *testing.T) {
 	n.CategoryName = "Notícia"
 	n.Description = "Imagens se espalha e choca otakus"
 	n.ImageUrl = "https://imagem.com/imagem.ong"
+	n.AuthorId = 1
 	n.Rows = make([]*Row, 1)
 	n.Rows[0] = &Row{Type: ROWLAYOUT1TYPE, Content: " melhor amigo de goku, Verdita, disse com lágrimas de ódio",
 		FirstLetter:  "O",
@@ -196,13 +197,13 @@ func TestSearch(t *testing.T) {
 }
 
 func TestSearchNewWithRows(t *testing.T) {
-	_, err2 := SearchNewWithRows(1)
+	new, err2 := SearchNewWithRows(1)
 
 	if err2 != nil {
 		panic(err2.Error())
 	}
 
-	// fmt.Println(new)
+	fmt.Println(new)
 }
 
 func TestSearchNewsPaginated(t *testing.T) {
@@ -226,11 +227,11 @@ func TestSearchLastestNews(t *testing.T) {
 }
 
 func TestSearchHotNews(t *testing.T) {
-	news, err := SearchHotNews()
+	_, err := SearchHotNews()
 
 	if err != nil {
 		panic(err.Error())
 	}
 
-	fmt.Println(news)
+	// fmt.Println(news)
 }
