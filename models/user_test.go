@@ -1,9 +1,14 @@
 package models
 
-import "testing"
+import (
+	"fmt"
+	"testing"
+)
 
 func TestInsertUser(t *testing.T) {
 	var u User
+
+	fmt.Println("criando user")
 
 	u.Name = "Milionario"
 	u.Email = "myemailemail@email.com"

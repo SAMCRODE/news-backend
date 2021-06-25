@@ -25,5 +25,11 @@ func NewRouter() *gin.Engine {
 		newsGroup.GET("/home", news.SearchHomePageNews)
 	}
 
+	userGroup := router.Group("users")
+	{
+		users := new(controller.UserController)
+		userGroup.POST("/create-account", users.CreateAccount)
+	}
+
 	return router
 }

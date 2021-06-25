@@ -65,6 +65,7 @@ func TestInsertShowNumber1New(t *testing.T) {
 	var n New
 
 	n.Name = "Afinal, Santana tem carburador ou não tem carburador ?"
+	n.AuthorId = 1
 	n.CategoryName = "Automotivos"
 	n.Description = "Preço da carne ultrapassa a barra de ouro"
 	n.ImageUrl = "https://images.uncyc.org/pt/thumb/d/d5/Ti%C3%A3o_Carburador.jpg/1200px-Ti%C3%A3o_Carburador.jpg"
@@ -86,6 +87,7 @@ func TestInsertShowNumber2New(t *testing.T) {
 	var n New
 
 	n.Name = "Confirmada nova capa do GTA VI"
+	n.AuthorId = 1
 	n.CategoryName = "Games"
 	n.Description = "..."
 	n.ImageUrl = "https://theshoppers.com/pt-br/wp-content/uploads/sites/10/agostinho-carrara-no-gta-6-arte-de-dann1230-twitter-the-shoppers.jpg"
@@ -107,6 +109,7 @@ func TestInsertShowNumber3New(t *testing.T) {
 	var n New
 
 	n.Name = "Ratinho espanca Goku"
+	n.AuthorId = 1
 	n.CategoryName = "Televisão"
 	n.Description = "..."
 	n.ImageUrl = "https://pbs.twimg.com/media/D9EaDlrUIAEuiVW.png:large"
@@ -128,6 +131,7 @@ func TestInsertShowNumber4New(t *testing.T) {
 	var n New
 
 	n.Name = "Mamaco vs Godzila em breve nos cinemas"
+	n.AuthorId = 1
 	n.CategoryName = "Cinema"
 	n.Description = "..."
 	n.ImageUrl = "https://64.media.tumblr.com/f2dc10439bc1ee81fcccdb388ddabee8/fe135097f81936bb-e3/s500x750/645ad101f8753b0d490b040d017d13a100e850b4.gifv"
@@ -149,6 +153,7 @@ func TestInsertShowNumber5New(t *testing.T) {
 	var n New
 
 	n.Name = "O Jovem que ficou milionário com jogo do bixo"
+	n.AuthorId = 1
 	n.CategoryName = "Economia"
 	n.Description = "..."
 	n.ImageUrl = "https://blog.rico.com.vc/hs-fs/hubfs/o-que-e-ser-trader.jpg?width=607&name=o-que-e-ser-trader.jpg"
@@ -170,6 +175,7 @@ func TestInsertShowNumber6New(t *testing.T) {
 	var n New
 
 	n.Name = "Aprenda a capotar seu UNO"
+	n.AuthorId = 1
 	n.CategoryName = "Automotivos"
 	n.Description = "..."
 	n.ImageUrl = "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTxnx--cqeiQi3FkjBoZduHI0P2D83xkPx79g&usqp=CAU"
