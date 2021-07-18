@@ -24,5 +24,5 @@ func (u UserController) CreateAccount(c *gin.Context) {
 		return
 	}
 
-	c.JSON(http.StatusOK, gin.H{"message": "Gift Save"})
+	c.JSON(http.StatusOK, gin.H{"message": "Account created"})
 }
