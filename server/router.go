@@ -41,5 +41,11 @@ func NewRouter() *gin.Engine {
 		userGroup.POST("/create-account", users.CreateAccount)
 	}
 
+	authGroup := router.Group("auth")
+	{
+		auth := new(controller.AuthController)
+		authGroup.POST("/", auth.Auth)
+	}
+
 	return router
 }

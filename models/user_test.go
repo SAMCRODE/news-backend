@@ -21,3 +21,11 @@ func TestInsertUser(t *testing.T) {
 		t.Error(err)
 	}
 }
+
+func TestFindUserByEmail(t *testing.T) {
+	_, err := SearchUserByEmail("myemailemail@email.com")
+
+	if err != nil {
+		t.Error(err)
+	}
+}

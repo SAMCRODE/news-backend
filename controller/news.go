@@ -1,6 +1,7 @@
 package controller
 
 import (
+	"context"
 	"net/http"
 	"strconv"
 
@@ -12,6 +13,7 @@ type NewController struct{}
 
 func (n NewController) Save(c *gin.Context) {
 	new := models.New{}
+	c.Request.WithContext(context.WithValue(c.Request.Context(), "logged user", "lalala"))
 
 	if errA := c.ShouldBind(&new); errA != nil {
 		c.JSON(http.StatusBadRequest, gin.H{"error": "Please provide a valid new object"})

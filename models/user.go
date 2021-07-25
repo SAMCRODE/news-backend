@@ -17,3 +17,11 @@ func (n User) Save() error {
 
 	return err
 }
+
+func SearchUserByEmail(email string) (User, error) {
+	pg := db.GetDB()
+	var user User
+	_, err := pg.Query(&user, `SELECT * FROM users WHERE email = ?`, email)
+
+	return user, err
+}

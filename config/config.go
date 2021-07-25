@@ -9,6 +9,7 @@ import (
 
 type Config struct {
 	DATABASEURI string
+	JWTKEY      string
 }
 
 var config Config
@@ -24,6 +25,7 @@ func Init() {
 	// log.Println(os.Getenv("DATABASEURI"))
 	// log.Println(config)
 	config.DATABASEURI = os.Getenv("DATABASEURI")
+	config.JWTKEY = os.Getenv("JWTKEY")
 }
 
 func GetConfig() Config {
