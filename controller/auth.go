@@ -27,8 +27,9 @@ func (u AuthController) Auth(c *gin.Context) {
 		return
 	}
 
+	suser.Password = ""
 	token := jwt.NewWithClaims(jwt.SigningMethodHS256, jwt.MapClaims{
-		"user": user,
+		"user": suser,
 		"exp":  time.Now().Add(time.Minute * 15).Unix(),
 	})
 

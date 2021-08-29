@@ -4,6 +4,7 @@ import (
 	"github.com/gin-contrib/cors"
 	"github.com/gin-gonic/gin"
 	"github.com/news-backend/controller"
+	"github.com/news-backend/middleware"
 )
 
 func NewRouter() *gin.Engine {
@@ -28,11 +29,13 @@ func NewRouter() *gin.Engine {
 	newsGroup := router.Group("news")
 	{
 		news := new(controller.NewController)
-		newsGroup.POST("/create", news.Save)
 		newsGroup.GET("/collection/:page", news.SearchNewsByPage)
 		newsGroup.GET("/lastest", news.SearchLastestNews)
 		newsGroup.GET("/detail/:id", news.SearchNewsDetail)
 		newsGroup.GET("/home", news.SearchHomePageNews)
+
+		newsGroup.Use(middleware.Authenticated())
+		newsGroup.POST("/create", news.Save)
 	}
 
 	userGroup := router.Group("users")
