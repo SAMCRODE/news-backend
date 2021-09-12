@@ -40,9 +40,9 @@ type New struct {
 	Author          User `pg:"rel:has-one"`
 }
 
-func (n New) Save() error {
+func (n *New) Save() error {
 	pg := db.GetDB()
-	_, err := pg.Model(&n).Returning("Id").Insert()
+	_, err := pg.Model(n).Returning("Id").Insert()
 
 	for i := 0; i < len(n.Rows); i++ {
 		n.Rows[i].NewId = n.Id

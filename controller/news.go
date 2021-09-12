@@ -26,13 +26,12 @@ func (n NewController) Save(c *gin.Context) {
 	new.AuthorId = authUser.Id
 
 	err := new.Save()
-
 	if err != nil {
 		c.JSON(http.StatusInternalServerError, gin.H{"error": "Please try again later"})
 		return
 	}
 
-	c.JSON(http.StatusOK, gin.H{"message": "Gift Save"})
+	c.JSON(http.StatusOK, gin.H{"message": "success", "news": new})
 }
 
 func (n NewController) SearchNewsByPage(c *gin.Context) {
