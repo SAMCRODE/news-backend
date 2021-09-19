@@ -42,11 +42,22 @@ type New struct {
 
 func (n *New) Save() error {
 	pg := db.GetDB()
-	_, err := pg.Model(n).Returning("Id").Insert()
+	var err error
+
+	if n.Id == 0 {
+		_, err = pg.Model(n).Returning("Id").Insert()
+	} else {
+		_, err = pg.Model(n).Returning("Id").Where("new.id = ?", n.Id).Update()
+	}
 
 	for i := 0; i < len(n.Rows); i++ {
 		n.Rows[i].NewId = n.Id
-		pg.Model(n.Rows[i]).Insert()
+
+		if n.Rows[i].Id == 0 {
+			pg.Model(n.Rows[i]).Insert()
+		} else {
+			_, err = pg.Model(n.Rows[i]).Returning("Id").Where("row.id = ?", n.Rows[i].Id).Update()
+		}
 	}
 
 	return err
@@ -94,7 +105,7 @@ func SearchNewWithRows(id int) (New, error) {
 	err := db.Model(&new).
 		Relation("Author").
 		Where("new.id = ?", id).
-		Relation("Rows").First()
+		Relation("Rows").Select()
 
 	return new, err
 }
