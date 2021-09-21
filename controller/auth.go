@@ -37,5 +37,6 @@ func (u AuthController) Auth(c *gin.Context) {
 
 	c.Header("Authorization", tokenString)
 	c.JSON(http.StatusAccepted, gin.H{"Name": suser.Name,
-		"Email": suser.Email, "ImageUrl": suser.ImageUrl, "Jwt": tokenString})
+		"Email": suser.Email, "ImageUrl": suser.ImageUrl, "Permissions": suser.Permissions,
+		"Jwt": tokenString})
 }
