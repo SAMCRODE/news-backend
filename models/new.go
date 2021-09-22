@@ -40,6 +40,36 @@ type New struct {
 	Author          User `pg:"rel:has-one"`
 }
 
+func (n *New) AdjustRows() error {
+	pg := db.GetDB()
+	mnew, err := SearchNewWithRows(n.Id)
+
+	if err != nil {
+		return err
+	}
+
+	for i := 0; i < len(mnew.Rows); i++ {
+		found := false
+
+		for j := 0; j < len(n.Rows); j++ {
+			if n.Rows[j].Id == mnew.Rows[i].Id {
+				found = true
+				break
+			}
+		}
+
+		if !found {
+			_, err := pg.Model(mnew.Rows[i]).WherePK().ForceDelete()
+
+			if err != nil {
+				return err
+			}
+		}
+	}
+
+	return err
+}
+
 func (n *New) Save() error {
 	pg := db.GetDB()
 	var err error
@@ -60,7 +90,11 @@ func (n *New) Save() error {
 		}
 	}
 
-	return err
+	if err != nil {
+		return err
+	}
+
+	return n.AdjustRows()
 }
 
 func SearchNews() ([]New, error) {
@@ -99,7 +133,7 @@ func SearchHotNews() ([]New, error) {
 	return news, err
 }
 
-func SearchNewWithRows(id int) (New, error) {
+func SearchNewWithRows(id int) (*New, error) {
 	db := db.GetDB()
 	var new New
 	err := db.Model(&new).
@@ -107,5 +141,5 @@ func SearchNewWithRows(id int) (New, error) {
 		Where("new.id = ?", id).
 		Relation("Rows").Select()
 
-	return new, err
+	return &new, err
 }
