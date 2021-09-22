@@ -22,7 +22,7 @@ func (u AuthController) Auth(c *gin.Context) {
 
 	suser, err := models.SearchUserByEmail(user.Email)
 
-	if err != nil || user.Password != suser.Password {
+	if err != nil || user.Password != suser.Password || suser.Id == 0 {
 		c.JSON(http.StatusBadRequest, gin.H{"error": "User not identified"})
 		return
 	}
