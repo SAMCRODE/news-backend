@@ -141,5 +141,9 @@ func SearchNewWithRows(id int) (*New, error) {
 		Where("new.id = ?", id).
 		Relation("Rows").Select()
 
+	new.Author.Password = ""
+	new.Author.Permissions = 0
+	new.Author.Id = 0
+
 	return &new, err
 }
