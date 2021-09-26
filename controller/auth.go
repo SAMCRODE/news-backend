@@ -1,6 +1,8 @@
 package controller
 
 import (
+	"crypto/md5"
+	"encoding/hex"
 	"net/http"
 	"time"
 
@@ -21,6 +23,9 @@ func (u AuthController) Auth(c *gin.Context) {
 	}
 
 	suser, err := models.SearchUserByEmail(user.Email)
+
+	hash := md5.Sum([]byte(user.Password))
+	user.Password = hex.EncodeToString(hash[:])
 
 	if err != nil || user.Password != suser.Password || suser.Id == 0 {
 		c.JSON(http.StatusBadRequest, gin.H{"error": "User not identified"})

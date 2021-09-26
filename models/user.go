@@ -1,6 +1,11 @@
 package models
 
-import "github.com/news-backend/db"
+import (
+	"crypto/md5"
+	"encoding/hex"
+
+	"github.com/news-backend/db"
+)
 
 type User struct {
 	tableName   struct{} `pg:"users"`
@@ -14,6 +19,9 @@ type User struct {
 
 func (n User) Save() error {
 	pg := db.GetDB()
+	hash := md5.Sum([]byte(n.Password))
+	n.Password = hex.EncodeToString(hash[:])
+
 	_, err := pg.Model(&n).Returning("Id").Insert()
 
 	return err
