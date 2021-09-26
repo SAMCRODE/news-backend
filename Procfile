@@ -1,1 +1,1 @@
-web: bin/samcrode-news
+web: bin/news-backend
